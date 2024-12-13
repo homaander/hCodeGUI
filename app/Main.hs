@@ -38,7 +38,7 @@ runApp = do
   where
     config = [
       appWindowTitle "H Code App",
-      appWindowIcon  "./assets/images/icon.png",
+      appWindowIcon  "./assets/icon.png",
       appWindowState (MainWindowNormal (800, 800)),
       appTheme       darkTheme,
       appFontDef     "Regular" "./assets/fonts/FiraCode-Light.ttf",
