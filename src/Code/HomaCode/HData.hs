@@ -6,12 +6,12 @@ import Code.HomaCode.Math
 class Math a => HData a where
   (<^<) :: [a] -> HCount -> [a]
   (>^>) :: [a] -> HCount -> [a]
+  setRank :: HBase -> HRank -> [a] -> [a]
 
   fromHData   :: [a] -> Int
   toHData     :: HBase -> Int -> [a]
   toHDataN    :: HBase -> HRank -> Int -> [a]
 
-  setRank :: HBase -> HRank -> [a] -> [a]
 
   setBase :: HBase -> Int -> [a] -> [a]
   resetBase :: HBase -> [a] -> [a]

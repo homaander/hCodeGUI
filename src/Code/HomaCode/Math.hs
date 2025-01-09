@@ -9,7 +9,6 @@ class (Eq a, Show a) => Math a where
 
   neg  :: a -> a
 
-  -- default
   (^-) a b = a ^+ neg b
 
 

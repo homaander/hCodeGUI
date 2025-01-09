@@ -2,6 +2,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE GADTs #-}
+{-# LANGUAGE PatternSynonyms #-}
 
 module Main(main) where
 
@@ -17,9 +18,23 @@ import Templates.Blocks
 import Code.HomaCode
 
 
+-- pattern Point2 :: a -> b -> (a, b)
+-- pattern Point2{x, y} = (x, y)
+
+import qualified Data.ByteString as B
+
+-- >>> toHData @HNum 10 123
+-- [HN {hBase = 10, hVal = 1},HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 3}]
+
+
+myVal :: B.ByteString
+myVal = "Hello"
+
 main :: IO ()
 main = do
   runApp
+
+   -- print $ Point2 1 1
 
   -- let
   --   base = 37
