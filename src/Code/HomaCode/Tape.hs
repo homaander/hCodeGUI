@@ -32,4 +32,4 @@ instance Tape HNum where
       hid     = getTapeId     hdata
 
 -- >>> toTape [HN 16 12,HN 16 2,HN 16 13,HN 16 3,HN 16 14,HN 16 4]
--- HTape {tapeId = [HN {hBase = 16, hVal = 0},HN {hBase = 16, hVal = 0},HN {hBase = 16, hVal = 7},HN {hBase = 16, hVal = 4},HN {hBase = 16, hVal = 5},HN {hBase = 16, hVal = 4}], tapeOffset = 275, tapeAntiOffset = 229, tapeLength = 504}
+-- HTape {tapeId = [HN.0,HN.0,HN.7,HN.4,HN.5,HN.4], tapeOffset = 275, tapeAntiOffset = 229, tapeLength = 504}

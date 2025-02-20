@@ -18,10 +18,8 @@ class Tape a => TapeInfo a where
   trapFinderOffset :: [a] -> [a] -> Int
 
 instance TapeInfo HNum where
-  -- Get Tape Id from (a + b_offset)
   getSumsList c aTape bTape = nub $ map (\n -> getTapeId (aTape ^+ codeN n bTape)) [0 .. c]
 
-  -- Get (b_offset, c_anti_offset) from (a + b_offset = c_offset)
   getOfsetsSums count aTape bTape resTape = mapMaybe check [0 .. count]
     where
       lid = getTapeId resTape
@@ -32,7 +30,6 @@ instance TapeInfo HNum where
           nsum  = aTape ^+ codeN b_offset bTape
           nsumd = toTape nsum
 
-  -- Get length tape for big tapes (base: 37, rank: 6)
   trapFinderLength base rank dat =  (100000 * fst (head $ filter (\(_, r) -> r == closest) nums_res)) + step
     where
       preset   = getPreset @HNum base rank (-100000)
@@ -44,7 +41,6 @@ instance TapeInfo HNum where
       nums_res = zip [0..] results
       step     = fromJust $ findOffset dat closest
 
-  -- Get big offset between code
   trapFinderOffset a b = (100000 * fst (head $ filter (\(_, r) -> r == b) nums_res)) + step
     where
       preset   = getPreset @HNum (hBase $ head a) (length a) (-100000)

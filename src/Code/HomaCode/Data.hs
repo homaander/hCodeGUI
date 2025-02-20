@@ -2,6 +2,7 @@ module Code.HomaCode.Data (
   HTape (..),
 
   HNum (..),
+  hn,
   toLetter,
   showHCode,
   fromLetter,
@@ -32,14 +33,20 @@ data HNum = HN {
   hBase :: HBase,
   hVal  :: HVal 
   }
-    deriving (Show, Eq)
+    deriving (Eq)
 
 instance Ord HNum where
   (HN _ a) <= (HN _ b) = a <= b
 
+instance Show HNum where
+  show (HN n a) = "HN " <> show n <> " " <> show a
+
 instance Read HNum where
   readsPrec _ [] = []
   readsPrec n (x:xs) = (fromLetter 10 x, xs) : readsPrec n xs
+
+hn :: Int -> [Int] -> [HNum]
+hn n = map (HN n)
 
 toLetter :: HNum -> Char
 toLetter (HN _ a) = hcodeAlfebet !! a

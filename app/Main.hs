@@ -11,6 +11,7 @@ import Data.List (transpose)
 import Monomer
 import Control.Lens
 import TextShow ( TextShow(showt) )
+-- import qualified Data.ByteString as B
 
 
 import Cfg
@@ -21,14 +22,14 @@ import Code.HomaCode
 -- pattern Point2 :: a -> b -> (a, b)
 -- pattern Point2{x, y} = (x, y)
 
-import qualified Data.ByteString as B
 
 -- >>> toHData @HNum 10 123
 -- [HN {hBase = 10, hVal = 1},HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 3}]
 
-
-myVal :: B.ByteString
-myVal = "Hello"
+-- >>> map fromHData $ getPreset @HNum 10 5 33
+-- >>> map fromHData $ getPreset @HNum 10 5 66
+-- [61086,16964,9254,86505,64451]
+-- [74346,40890,38643,49407,60374]
 
 main :: IO ()
 main = do

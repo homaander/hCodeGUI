@@ -5,6 +5,20 @@
 ```haskell
 import HomaCode
 
+data HNum = HN { 
+  hBase :: HBase,
+  hVal  :: HVal 
+  }
+    deriving (Eq)
+
+data HTape hdata = HTape {
+  tapeId         :: hdata,
+  tapeOffset     :: Int,
+  tapeAntiOffset :: Int,
+  tapeLength     :: Int
+  }
+    deriving Show
+
 class (Eq a, Show a) => Math a where
   -- Sum without offset
   (^+) :: a -> a -> a
@@ -37,6 +51,69 @@ class Math a => HData a where
   setBase :: HBase -> Int -> [a] -> [a]
   -- Set base for any value without recalculate numbers
   resetBase :: HBase -> [a] -> [a]
+
+
+
+class HData a => Code a where
+  -- Code N times
+  (-^>) :: [a] -> HCount -> [a]
+  -- Decode N times
+  (<^-) :: [a] -> HCount -> [a]
+
+  -- Get CodeMap for N times
+  getPreset  :: HBase -> HRank -> HCount -> [[a]]
+  -- Get mult from CodeMap
+  execPreset :: [[a]] -> [a] -> [[a]]
+  -- Code with CodeMap
+  runPreset  :: [[a]] -> [a] ->  [a]
+
+  -- Code 1 times
+  code       :: [a] -> [a]
+  -- Code N times
+  codeN      :: HCount -> [a] ->  [a]
+  -- Get N next codes
+  codeNList  :: HCount -> [a] -> [[a]]
+  -- Code value times
+  codeR      :: [a] -> [a]
+
+  -- Decode 1 times
+  decode  ::  [a] -> [a]
+  -- Decode 1 times
+  decodeN ::  HCount -> [a] -> [a]
+
+  -- Try find count code times between two codes
+  findOffset :: [a] -> [a] -> Maybe Int
+  -- Try find all steps of code between two codes
+  findList   :: [a] -> [a] -> Maybe [[a]]
+
+
+
+class (Ord a, Code a) => Tape a where
+  -- Get full info code
+  toTape   :: [a] -> HTape [a]
+  -- Get only code
+  fromTape :: HTape [a] -> [a]
+
+  -- Minimum in code tape
+  getTapeId     :: [a] -> [a]
+  getTapeLength :: [a] -> Int
+  -- All codes in tape
+  getTapeList   :: [a] -> [[a]]
+
+
+
+class Tape a => TapeInfo a where
+  -- Get Tape Id from (a + b_offset)
+  getSumsList   :: Int -> [a] -> [a] -> [[a]]
+  -- Get (b_offset, c_anti_offset) from (a + b_offset = c_offset)
+  getOfsetsSums :: Int -> [a] -> [a] ->  [a]  ->  [(Int,Int)]
+
+  -- Get length tape for big tapes (expl: base: 37, rank: 6)
+  trapFinderLength :: HBase -> HRank -> [a] -> Int
+  -- Get big offset between code
+  trapFinderOffset :: [a] -> [a] -> Int
+
+
 
 toHData @HNum 10 4 1234
 ```
