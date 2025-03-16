@@ -19,6 +19,22 @@ data HTape hdata = HTape {
   }
     deriving Show
 
+hcodeAlfebet :: String
+hcodeAlfebet  = "0123456789AB"
+             <> "CDEFGHIJKLMN"
+             <> "OPQRSTUVWXYZ_"
+
+type HBase  = Int
+type HVal   = Int
+type HCount = Int
+type HRank  = Int
+
+hn :: HBase -> [Int] -> [HNum]
+
+fromLetter :: HBase -> Char -> HNum
+toLetter   :: HNum  -> Char
+showHCode  :: [HNum] -> String
+
 class (Eq a, Show a) => Math a where
   -- Sum without offset
   (^+) :: a -> a -> a
@@ -113,8 +129,5 @@ class Tape a => TapeInfo a where
   -- Get big offset between code
   trapFinderOffset :: [a] -> [a] -> Int
 
-
-
-toHData @HNum 10 4 1234
 ```
 

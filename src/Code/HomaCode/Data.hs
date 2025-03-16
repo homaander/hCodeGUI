@@ -45,7 +45,7 @@ instance Read HNum where
   readsPrec _ [] = []
   readsPrec n (x:xs) = (fromLetter 10 x, xs) : readsPrec n xs
 
-hn :: Int -> [Int] -> [HNum]
+hn :: HBase -> [Int] -> [HNum]
 hn n = map (HN n)
 
 toLetter :: HNum -> Char
