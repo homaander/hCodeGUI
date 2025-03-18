@@ -1,4 +1,4 @@
-module Templates.Blocks(blockInfo, blockMatrix) where
+module View.Blocks(blockInfo, blockMatrix) where
 
 import Data.List (transpose)
 import qualified Data.Text as T

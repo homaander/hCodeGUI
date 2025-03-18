@@ -29,10 +29,9 @@ library
       Code.HomaCode.Data
       Code.HomaCode.HData
       Code.HomaCode.Math
-      Code.HomaCode.Parallel.TapeInfo
       Code.HomaCode.Tape
       Code.HomaCode.TapeInfo
-      Templates.Blocks
+      View.Blocks
   other-modules:
       Paths_hCodeGUI
   autogen-modules:

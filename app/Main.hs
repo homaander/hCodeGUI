@@ -15,7 +15,7 @@ import TextShow ( TextShow(showt) )
 
 
 import Cfg
-import Templates.Blocks
+import View.Blocks
 import Code.HomaCode
 
 
