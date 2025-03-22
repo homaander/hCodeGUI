@@ -71,10 +71,13 @@ class Math a => HData a where
 
 
 class HData a => Code a where
-  -- Code N times
+  -- codeN aliace
   (-^>) :: [a] -> HCount -> [a]
-  -- Decode N times
+  -- decodeN aliace
   (<^-) :: [a] -> HCount -> [a]
+
+  -- runPreset aliace
+  (*^>) :: [[a]] -> [a] -> [a]
 
   -- Get CodeMap for N times
   getPreset  :: HBase -> HRank -> HCount -> [[a]]
@@ -128,6 +131,12 @@ class Tape a => TapeInfo a where
   trapFinderLength :: HBase -> HRank -> [a] -> Int
   -- Get big offset between code
   trapFinderOffset :: [a] -> [a] -> Int
+
+```
+
+```haskell
+
+showHCode $ (getPreset @HNum 10 5 1) *^> (hn 10 [1,2,3,4,5])
 
 ```
 

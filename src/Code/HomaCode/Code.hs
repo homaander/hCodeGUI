@@ -9,6 +9,8 @@ class HData a => Code a where
   (-^>) :: [a] -> HCount -> [a]
   (<^-) :: [a] -> HCount -> [a]
 
+  (*^>) :: [[a]] -> [a] -> [a]
+
   getPreset  :: HBase -> HRank -> HCount -> [[a]]
   execPreset :: [[a]] -> [a] -> [[a]]
   runPreset  :: [[a]] -> [a] ->  [a]
@@ -28,6 +30,8 @@ class HData a => Code a where
   -- default
   (-^>)  = flip codeN
   (<^-)  = flip decodeN
+
+  (*^>)  = runPreset
 
   codeN     n hdata = iterate code hdata !! n
   codeNList n ihd   = take n $ iterate code (code ihd)
@@ -62,7 +66,8 @@ instance Code HNum where
       st = setRank b n [neg $ HN b 1, HN b 1]
       preset = map (st <^<) [0 .. n - 1]
 
-  runPreset preset dat  = map (foldl1 (^+) . (^* dat)) preset
+  -- runPreset preset dat  = map (foldl1 (^+) . (^* dat)) preset
+  runPreset preset dat  = map (foldl1 (^+)) $ execPreset preset dat
 
   execPreset preset dat = map (^* dat) preset
 
