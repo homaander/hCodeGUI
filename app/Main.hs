@@ -61,7 +61,7 @@ runApp = do
       appInitEvent   AppInit
       ]
 
-    model = AppModel "" [] 1 10 1 "" 0 0 0
+    model = AppModel "12345" [] 1 10 1 "" 0 0 0
 
 
 buildUI :: WidgetEnv' -> AppModel -> WidgetNode'
@@ -73,16 +73,22 @@ buildUI _ model = widgetTree
 
       hgrid [
         vstack [
-          numericField codeNC
-            `styleBasic` [textCenter],
+          hgrid [
+            label "Count: ",
+            numericField codeNC
+              `styleBasic` [textCenter]
+            ],
 
           dropdown selectDataBase [2, 10, 16, 37]
             (\sRow -> hstack [ label "Base: ", label $ showt sRow ])
             (label . showt)
             `styleBasic` [paddingB 10],
 
-          textField codeText
-            `styleBasic` [textCenter],
+          hgrid [
+            label "Data: ",
+            textField codeText
+              `styleBasic` [textCenter]
+            ],
 
           hgrid [
             button "<----" AppDecode,
