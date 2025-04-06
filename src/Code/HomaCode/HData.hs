@@ -23,9 +23,11 @@ class Math a => HData a where
 
 
 instance HData HNum where
-  dat <^< n = drop n dat <> replicate n (HN (hBase $ head dat) 0)
+  [] <^< _ = error "Empty HData"
+  dat@(fd:_) <^< n = drop n dat <> replicate n (HN (hBase fd) 0)
 
-  dat >^> n =  replicate n (HN (hBase $ head dat) 0) <> take (length dat - n) dat
+  [] >^> _ = error "Empty HData"
+  dat@(fd:_) >^> n =  replicate n (HN (hBase fd) 0) <> take (length dat - n) dat
 
   fromHData [] = 0
   fromHData hdata@(hf:_) = sum $ zipWith (*) (map hVal hdata) powArr

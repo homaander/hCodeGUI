@@ -1,5 +1,4 @@
 import Code.HomaCode
-import Code.HomaCode.Data
 
 
 main :: IO ()

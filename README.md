@@ -128,7 +128,7 @@ class Tape a => TapeInfo a where
   getOfsetsSums :: Int -> [a] -> [a] ->  [a]  ->  [(Int,Int)]
 
   -- Get length tape for big tapes (expl: base: 37, rank: 6)
-  trapFinderLength :: HBase -> HRank -> [a] -> Int
+  trapFinderLength :: [a] -> Int
   -- Get big offset between code
   trapFinderOffset :: [a] -> [a] -> Int
 

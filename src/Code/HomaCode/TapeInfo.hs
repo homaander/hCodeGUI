@@ -14,7 +14,7 @@ class Tape a => TapeInfo a where
   getSumsList   :: Int -> [a] -> [a] -> [[a]]
   getOfsetsSums :: Int -> [a] -> [a] ->  [a]  ->  [(Int,Int)]
 
-  trapFinderLength :: HBase -> HRank -> [a] -> Int
+  trapFinderLength :: [a] -> Int
   trapFinderOffset :: [a] -> [a] -> Int
 
 instance TapeInfo HNum where
@@ -30,24 +30,40 @@ instance TapeInfo HNum where
           nsum  = aTape ^+ codeN b_offset bTape
           nsumd = toTape nsum
 
-  trapFinderLength base rank dat =  (100000 * fst (head $ filter (\(_, r) -> r == closest) nums_res)) + step
+  trapFinderLength dat = trapFinderOffset dat dat
+
+  trapFinderOffset [] _  = error "Empty HData"
+  trapFinderOffset _  [] = error "Empty HData"
+  trapFinderOffset a@(ha:_) b = (steps * fst res) + step
     where
-      preset   = getPreset @HNum base rank (-100000)
-      results  = take 10000 $ iterate (runPreset preset) dat
+      steps    = 100000
 
-      trap     = codeNList 100000 dat
-      closest  = head $ results `intersect` trap
+      -- Base 10 Rank 8
+      -- preset = [
+      --            [HN 10 0,HN 10 6,HN 10 8,HN 10 0,HN 10 3,HN 10 3,HN 10 9,HN 10 3]
+      --          , [HN 10 6,HN 10 8,HN 10 6,HN 10 1,HN 10 3,HN 10 2,HN 10 6,HN 10 2]
+      --          , [HN 10 8,HN 10 6,HN 10 1,HN 10 9,HN 10 0,HN 10 6,HN 10 5,HN 10 5]
+      --          , [HN 10 0,HN 10 1,HN 10 9,HN 10 0,HN 10 2,HN 10 3,HN 10 5,HN 10 8]
+      --          , [HN 10 3,HN 10 3,HN 10 0,HN 10 2,HN 10 3,HN 10 1,HN 10 6,HN 10 8]
+      --          , [HN 10 3,HN 10 2,HN 10 6,HN 10 3,HN 10 1,HN 10 6,HN 10 4,HN 10 6]
+      --          , [HN 10 9,HN 10 6,HN 10 5,HN 10 5,HN 10 6,HN 10 4,HN 10 6,HN 10 2]
+      --          , [HN 10 3,HN 10 2,HN 10 5,HN 10 8,HN 10 8,HN 10 6,HN 10 2,HN 10 2]
+      --          ]
 
-      nums_res = zip [0..] results
-      step     = fromJust $ findOffset dat closest
-
-  trapFinderOffset a b = (100000 * fst (head $ filter (\(_, r) -> r == b) nums_res)) + step
-    where
-      preset   = getPreset @HNum (hBase $ head a) (length a) (-100000)
+      preset   = getPreset @HNum (hBase ha) (length a) (-steps)
       results  = take 10000 $ iterate (runPreset preset) a
 
+      trap     = codeNList steps b
+      closest  = case results `intersect` trap of
+                   [] -> error "CC"
+                   (x:_) -> x
+
       nums_res = zip [0..] results
-      step     = fromJust $ findOffset a b
+      step     = fromJust $ findOffset b closest
+
+      res = case filter (\(_, r) -> r == closest) nums_res of
+              [] -> error "AA"
+              (x:_) -> x
 
 
 

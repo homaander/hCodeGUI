@@ -47,13 +47,13 @@ instance Code HNum where
   decode dat = reverse [foldl1 (^+) (dat <^< (a - 1)) | a <- [1 .. length dat]]
 
   findOffset [] _ = Nothing
-  findOffset ihd hdata = do
+  findOffset ihd@(fhd:_) hdata = do
       guard $ res /= maxlen
       pure res
     where
       res         = foldr finder 0 (codeNList maxlen ihd)
       finder he n = if he == hdata then 1 else n + 1
-      maxlen      = hBase (head ihd) ^ length ihd
+      maxlen      = hBase fhd ^ length ihd
 
 
   findList ihd hdata = do
