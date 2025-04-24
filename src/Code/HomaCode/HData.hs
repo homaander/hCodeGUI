@@ -29,6 +29,8 @@ instance HData HNum where
   [] >^> _ = error "Empty HData"
   dat@(fd:_) >^> n =  replicate n (HN (hBase fd) 0) <> take (length dat - n) dat
 
+  setRank base rank dat = replicate (rank - length dat) (HN base 0) <> dat
+
   fromHData [] = 0
   fromHData hdata@(hf:_) = sum $ zipWith (*) (map hVal hdata) powArr
     where
@@ -38,8 +40,6 @@ instance HData HNum where
     where
       powArr = map (base ^) $ reverse [0 .. len - 1]
       len    = ceiling @Double @Int $ logBase (fromIntegral base) (fromIntegral num + 0.1)
-
-  setRank base rank dat = replicate (rank - length dat) (HN base 0) <> dat
 
   resetBase base = map (\(HN _ v) -> HN base v)
 

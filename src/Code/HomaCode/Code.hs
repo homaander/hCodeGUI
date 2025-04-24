@@ -76,22 +76,22 @@ instance Code HNum where
 -- Just 1
 
 -- >>> [HN 10 1, HN 10 2] <^< 1
--- [HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 0}]
+-- [HN 10 2,HN 10 0]
 
 -- >>> [HN 10 2, HN 10 4] ^- [HN 10 9, HN 10 2]
--- [HN {hBase = 10, hVal = 3},HN {hBase = 10, hVal = 2}]
+-- [HN 10 3,HN 10 2]
 
 -- >>> neg $ HN 10 0
--- HN {hBase = 10, hVal = 0}
+-- HN 10 0
 
 -- >>> zipWith (^-) [HN 10 2, HN 10 4] ([HN 10 9, HN 10 2] >^> 1)
--- [HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 5}]
+-- [HN 10 2,HN 10 5]
 
 -- >>> [HN 10 2, HN 10 4] ^- ([HN 10 9, HN 10 2] >^> 1)
--- [HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 5}]
+-- [HN 10 2,HN 10 5]
 
 -- >>> code @HNum [HN 10 1, HN 10 2]
--- [HN {hBase = 10, hVal = 1},HN {hBase = 10, hVal = 1}]
+-- [HN 10 1,HN 10 1]
 
 -- >>> map showHCode $ getPreset @HNum 20 5 666
 -- ["8HB02","HJHD2","BH1JD","0DJ1A","22DAI"]
