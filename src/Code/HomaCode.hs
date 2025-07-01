@@ -7,6 +7,7 @@ module Code.HomaCode (
   Code(..),
   Tape(..),
   TapeInfo(..),
+  TapeInfoParallel(..),
 
   -- Text func
   tapeText,
@@ -18,6 +19,7 @@ module Code.HomaCode (
   HTape (..),
 
   HNum (..),
+  hn,
   toLetter,
   showHCode,
   fromLetter,

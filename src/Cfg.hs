@@ -21,7 +21,9 @@ data AppModel = AppModel {
   _tapeInfoId         :: Text,
   _tapeInfoOffset     :: Int,
   _tapeInfoAntiOffset :: Int,
-  _tapeInfoLength     :: Int
+  _tapeInfoLength     :: Int,
+
+  _appTestText :: Text
   } deriving (Eq, Show)
 
 makeLenses 'AppModel
@@ -39,6 +41,8 @@ data AppEvent = AppInit
               | AppTDown
               | AppTLeft
               | AppTRight
+
+              | AppTest
   deriving (Eq, Show)
 
 type WidgetEnv'    = WidgetEnv AppModel AppEvent

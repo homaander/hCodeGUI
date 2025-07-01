@@ -1,8 +1,6 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE GADTs #-}
-{-# LANGUAGE PatternSynonyms #-}
 
 module Main(main) where
 
@@ -19,37 +17,8 @@ import View.Blocks
 import Code.HomaCode
 
 
--- pattern Point2 :: a -> b -> (a, b)
--- pattern Point2{x, y} = (x, y)
-
-
--- >>> toHData @HNum 10 123
--- [HN {hBase = 10, hVal = 1},HN {hBase = 10, hVal = 2},HN {hBase = 10, hVal = 3}]
-
--- >>> map fromHData $ getPreset @HNum 10 5 33
--- >>> map fromHData $ getPreset @HNum 10 5 66
--- [61086,16964,9254,86505,64451]
--- [74346,40890,38643,49407,60374]
-
 main :: IO ()
 main = do
-  runApp
-
-   -- print $ Point2 1 1
-
-  -- let
-  --   base = 37
-  --   rank = 6 
-  --   dat  = HC.getHCodeText base "ANDREW"
-  -- print $ HC.trapFinderLength base rank dat
-
-  -- let
-  --   preset  = HC.getPreset @HNum base rank 100000
-  --   results = iterate (HC.runPreset preset) dat !! 1425
-  -- print $ showHCode $ HC.codeN 40356 results
-
-runApp :: IO ()
-runApp = do
     startApp model handleEvent buildUI config
   where
     config = [
@@ -61,7 +30,7 @@ runApp = do
       appInitEvent   AppInit
       ]
 
-    model = AppModel "12345" [] 1 10 1 "" 0 0 0
+    model = AppModel "12345" [] 1 10 1 "" 0 0 0 ""
 
 
 buildUI :: WidgetEnv' -> AppModel -> WidgetNode'
@@ -69,6 +38,10 @@ buildUI _ model = widgetTree
   where
     widgetTree = vstack [
       label "H_Code" `styleBasic` [ textSize 32, paddingB 10 ],
+      hgrid [
+        label (model ^. appTestText) `styleBasic` [ textSize 32, paddingB 10 ],
+        button "GO" AppTest
+        ],
       label "Default code:",
 
       hgrid [
@@ -136,6 +109,7 @@ handleEvent _ _ model evt =
                         $ model
                           & codeText  .~ showHCodeText (incodeT !! (rowNum - 1))
                       ]
+    AppTest -> [ Model $ model & appTestText .~ "LOL" ]
   where
     -- Code / Decode
     baseVal  = model ^. selectDataBase
