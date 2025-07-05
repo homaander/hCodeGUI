@@ -62,7 +62,6 @@ library
 
   hs-source-dirs: src
   exposed-modules:
-      Cfg
       Code.HomaCode
       Code.HomaCode.Code
       Code.HomaCode.Data
@@ -70,6 +69,8 @@ library
       Code.HomaCode.Math
       Code.HomaCode.Tape
       Code.HomaCode.TapeInfo
+
+      View.Cfg
       View.Blocks
 
   default-language: Haskell2010

@@ -7,10 +7,10 @@ import Monomer
 import TextShow
 import Control.Lens
 
-import Cfg
+import View.Cfg
 import Code.HomaCode
 
-blockInfo :: AppModel -> WidgetNode s AppEvent
+blockInfo :: AppModel -> WidgetNode AppModel AppEvent
 blockInfo model = vstack [
   button "Get Info" AppTapeInfo,
 
@@ -60,10 +60,11 @@ blockInfo model = vstack [
     codeHN = getHCodeText baseVal codeVal
 
 
-labelMatrix :: [HNum] -> Color -> WidgetNode s e
+labelMatrix :: [HNum] -> Color -> WidgetNode AppModel AppEvent
 labelMatrix b color = label 
   (T.pack $ mconcat [[toLetter a] <> " " | a <- b])
     `styleBasic` [textColor color]
+
 
 blockMatrix :: AppModel -> WidgetNode AppModel AppEvent
 blockMatrix model = hgrid [

@@ -12,7 +12,7 @@ import TextShow ( TextShow(showt) )
 -- import qualified Data.ByteString as B
 
 
-import Cfg
+import View.Cfg
 import View.Blocks
 import Code.HomaCode
 
@@ -22,7 +22,7 @@ main = do
     startApp model handleEvent buildUI config
   where
     config = [
-      appWindowTitle "H Code App",
+      appWindowTitle "HCode App",
       appWindowIcon  "./assets/icon.png",
       appWindowState (MainWindowNormal (800, 800)),
       appTheme       darkTheme,
@@ -37,11 +37,24 @@ buildUI :: WidgetEnv' -> AppModel -> WidgetNode'
 buildUI _ model = widgetTree
   where
     widgetTree = vstack [
-      label "H_Code" `styleBasic` [ textSize 32, paddingB 10 ],
+      -- hgrid [
+      --   label (model ^. appTestText) `styleBasic` [ textSize 32, paddingB 10 ],
+      --   button "GO" AppTest
+      --   ],
+
+
       hgrid [
-        label (model ^. appTestText) `styleBasic` [ textSize 32, paddingB 10 ],
-        button "GO" AppTest
+        label "H_Code" 
+          `styleBasic` [ textSize 32, paddingB 10 ],
+
+        dropdown selectDataBase [2, 10, 16, 37]
+          (\sRow -> hstack [ label "Base: ", label $ showt sRow ])
+          (label . showt)
+            `styleBasic` [paddingB 10]
         ],
+      
+      spacer,
+
       label "Default code:",
 
       hgrid [
@@ -51,11 +64,6 @@ buildUI _ model = widgetTree
             numericField codeNC
               `styleBasic` [textCenter]
             ],
-
-          dropdown selectDataBase [2, 10, 16, 37]
-            (\sRow -> hstack [ label "Base: ", label $ showt sRow ])
-            (label . showt)
-            `styleBasic` [paddingB 10],
 
           hgrid [
             label "Data: ",
