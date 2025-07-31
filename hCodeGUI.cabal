@@ -62,6 +62,8 @@ library
 
   hs-source-dirs: src
   exposed-modules:
+      Lang.HomaLang
+
       Code.HomaCode
       Code.HomaCode.Code
       Code.HomaCode.Data

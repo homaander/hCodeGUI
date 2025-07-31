@@ -17,20 +17,25 @@ import View.Blocks
 import Code.HomaCode
 
 
+import Lang.HomaLang
 main :: IO ()
 main = do
-    startApp model handleEvent buildUI config
-  where
-    config = [
-      appWindowTitle "HCode App",
-      appWindowIcon  "./assets/icon.png",
-      appWindowState (MainWindowNormal (800, 800)),
-      appTheme       darkTheme,
-      appFontDef     "Regular" "./assets/fonts/FiraCode-Light.ttf",
-      appInitEvent   AppInit
-      ]
+  print $ hlangRun [65, 44, 66] hlangCompExp2
 
-    model = AppModel "12345" [] 1 10 1 "" 0 0 0 ""
+-- main :: IO ()
+-- main = do
+--     startApp model handleEvent buildUI config
+--   where
+--     config = [
+--       appWindowTitle "HCode App",
+--       appWindowIcon  "./assets/icon.png",
+--       appWindowState (MainWindowNormal (800, 800)),
+--       appTheme       darkTheme,
+--       appFontDef     "Regular" "./assets/fonts/FiraCode-Light.ttf",
+--       appInitEvent   AppInit
+--       ]
+
+--     model = AppModel "12345" [] 1 10 1 "" 0 0 0 ""
 
 
 buildUI :: WidgetEnv' -> AppModel -> WidgetNode'
