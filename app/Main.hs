@@ -20,7 +20,7 @@ import Code.HomaCode
 import Lang.HomaLang
 main :: IO ()
 main = do
-  print $ hlangRun [65, 44, 66] hlangCompExp2
+  print $ runHLPag [65] $ pagGen 3 hlangEx3H
 
 -- main :: IO ()
 -- main = do
