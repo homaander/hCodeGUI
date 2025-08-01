@@ -1,7 +1,8 @@
 module Lang.HomaLang (
-    hlangEx1H
-  , hlangEx2H
-  , hlangEx3H
+    hlangExPag1
+  , hlangExPag2
+  , hlangExPag3
+  , hlangExProgramm1
 
   , pagGen
   , readHLComs
@@ -117,8 +118,11 @@ commandRender pag cell val = take (cell) pag <> [val] <> drop (cell + 1) pag
 
 
 
-hlangEx1H :: [HCom]
-hlangEx1H = [
+hlangExProgramm1 :: [HLPag]
+hlangExProgramm1  = [pagGen 1 hlangExPag1, pagGen 2 hlangExPag2, pagGen 3 hlangExPag3]
+
+hlangExPag1 :: [HCom]
+hlangExPag1 = [
     S Buf (Def 1)
 
   , R A Buf
@@ -128,8 +132,8 @@ hlangEx1H = [
   ]
 
 
-hlangEx2H :: [HCom]
-hlangEx2H = [
+hlangExPag2 :: [HCom]
+hlangExPag2 = [
     S Buf (Def 2)
   , R A Buf
   , S B (Def 1)
@@ -143,8 +147,8 @@ hlangEx2H = [
   ]
 
 
-hlangEx3H :: [HCom]
-hlangEx3H = [
+hlangExPag3 :: [HCom]
+hlangExPag3 = [
     S Buf (Def 3)
   , R A Buf
   , S B (Def 17)
@@ -152,18 +156,7 @@ hlangEx3H = [
   , S Pag (Def 0)
   ]
 
--- >>> readHLComs hlangEx2H
--- >>> pagGen 2 hlangEx2H
+-- >>> readHLComs hlangExPag2
+-- >>> pagGen 2 hlangExPag2
 -- [(0,3,2),(1,4,3),(0,5,1),(1,21,1),(1,3,7),(1,4,7),(1,2,8),(0,2,0),(1,1,21)]
 -- [2,50,1,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,1,4,3,0,5,1,1,21,1,1,3,7,1,4,7,1,2,8,0,2,0,1,1,21]
-
-
--- >>> hlangCompExp
--- >>> length hlangCompExp
--- >>> commandRender 1 21 hlangCompExp
--- >>> valRender [] hlangCompExp 1 1
--- [1,50,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1,1,5,3,0,6,7,1,4,7]
--- 62
--- [1,21,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,1,1,5,3,0,6,7,1,4,7]
--- 50
-
